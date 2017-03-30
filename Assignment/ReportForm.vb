@@ -1,5 +1,6 @@
 ﻿
 Imports System.Data.OleDb
+Imports System.Globalization
 Imports Microsoft.Reporting.WinForms
 Public Class ReportForm
     Public conn As New OleDbConnection("Provider=Microsoft.Jet.OLEDB.4.0;Data Source=lms.mdb; Persist Security Info=False;")
@@ -14,7 +15,7 @@ Public Class ReportForm
 
     Public Sub refreshReport()
         'Apply data filter
-        DataTable1BindingSource.Filter = "borrowDate=#" & Date.Parse(DateTimePicker1.Value).ToShortDateString & " 12:00:00 AM#"
+        DataTable1BindingSource.Filter = "borrowDate=#" & DateTimePicker1.Text & "#"
         'Making new data source and replace the older version of data source
         Dim newRS As New ReportDataSource
         newRS.Name = "Report_DataSet"

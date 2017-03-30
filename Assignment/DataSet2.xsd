@@ -12,8 +12,12 @@
               <DbSource ConnectionRef="lms.mdb" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT IIF(ISNULL(Member.memberID),Librarian.librarianID,Member.memberID) AS memberID,IIF(ISNULL(Member.memberID),Librarian.librarianName,Member.memberName) AS memberName,Book.ISBN,Book.authors,Loan.borrowDate,Loan.returnDate
-FROM ((Loan LEFT JOIN Member ON Member.memberID = Loan.memberID) LEFT JOIN Librarian ON Librarian.librarianID = Loan.memberID) INNER JOIN Book ON Book.ISBN = Loan.ISBN</CommandText>
+                    <CommandText>SELECT        IIF(ISNULL(Member.memberID), Librarian.librarianID, Member.memberID) AS memberID, IIF(ISNULL(Member.memberID), Librarian.librarianName, Member.memberName) AS memberName, Book.ISBN, Book.title, 
+                         Loan.borrowDate, Loan.returnDate
+FROM            (((Loan LEFT OUTER JOIN
+                         Member ON Member.memberID = Loan.memberID) LEFT OUTER JOIN
+                         Librarian ON Librarian.librarianID = Loan.memberID) INNER JOIN
+                         Book ON Book.ISBN = Loan.ISBN)</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -23,7 +27,7 @@ FROM ((Loan LEFT JOIN Member ON Member.memberID = Loan.memberID) LEFT JOIN Libra
               <Mapping SourceColumn="memberID" DataSetColumn="memberID" />
               <Mapping SourceColumn="memberName" DataSetColumn="memberName" />
               <Mapping SourceColumn="ISBN" DataSetColumn="ISBN" />
-              <Mapping SourceColumn="authors" DataSetColumn="authors" />
+              <Mapping SourceColumn="title" DataSetColumn="title" />
               <Mapping SourceColumn="borrowDate" DataSetColumn="borrowDate" />
               <Mapping SourceColumn="returnDate" DataSetColumn="returnDate" />
             </Mappings>
@@ -48,11 +52,11 @@ FROM ((Loan LEFT JOIN Member ON Member.memberID = Loan.memberID) LEFT JOIN Libra
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
-              <xs:element name="ISBN" msprop:Generator_ColumnVarNameInTable="columnISBN" msprop:Generator_ColumnPropNameInRow="ISBN" msprop:Generator_ColumnPropNameInTable="ISBNColumn" msprop:Generator_UserColumnName="ISBN" type="xs:int" minOccurs="0" />
-              <xs:element name="authors" msprop:Generator_ColumnVarNameInTable="columnauthors" msprop:Generator_ColumnPropNameInRow="authors" msprop:Generator_ColumnPropNameInTable="authorsColumn" msprop:Generator_UserColumnName="authors" minOccurs="0">
+              <xs:element name="ISBN" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnISBN" msprop:Generator_ColumnPropNameInRow="ISBN" msprop:Generator_ColumnPropNameInTable="ISBNColumn" msprop:Generator_UserColumnName="ISBN" type="xs:int" minOccurs="0" />
+              <xs:element name="title" msprop:Generator_ColumnVarNameInTable="columntitle" msprop:Generator_ColumnPropNameInRow="title" msprop:Generator_ColumnPropNameInTable="titleColumn" msprop:Generator_UserColumnName="title" minOccurs="0">
                 <xs:simpleType>
                   <xs:restriction base="xs:string">
-                    <xs:maxLength value="60" />
+                    <xs:maxLength value="255" />
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>

@@ -24,7 +24,7 @@ Public Class LoginForm
                 Form1.IsMember = True
                 While memberDr.Read()
                     Form1.memberID = memberDr.Item(0)
-                    Form1.memberName = memberDr.Item(1)
+                    Form1.memberName = memberDr.Item(2)
                 End While
                 MessageBox.Show("You successfully logged in!", "Login Success")
                 Me.Dispose()

@@ -56,7 +56,7 @@ Public Class RenewForm
 
 
             Dim cmd As New OleDbCommand("UPDATE Loan SET returnDate=@returnDate WHERE loanID=@loanID", conn)
-            Dim cmd2 As New OleDbCommand("INSERT INTO [Loan] ([loanID],[borrowDate],[expiryDate],[memberID],[ISBN]) VALUES (@loanID,@borrowDate,@newExpiryDate,@memberID,@ISBN);", conn)
+            Dim cmd2 As New OleDbCommand("INSERT INTO [Loan] ([borrowDate],[expiryDate],[memberID],[ISBN]) VALUES (@borrowDate,@newExpiryDate,@memberID,@ISBN);", conn)
             cmd.Parameters.AddWithValue("@returnDate", Now.ToShortDateString)
             cmd.Parameters.AddWithValue("@loanID", lbLoanID2.Text.ToString)
             With cmd2.Parameters
@@ -95,12 +95,19 @@ Public Class RenewForm
             Dim cmd As New OleDbCommand("UPDATE Loan SET returnDate=@returnDate WHERE loanID = @loanID", conn)
             cmd.Parameters.AddWithValue("@returnDate", Date.Now.ToShortDateString)
             cmd.Parameters.AddWithValue("@loanID", lbLoanID2.Text.ToString)
-            If LateDate() > 0 Then
+            conn.Open()
+            Dim success As Integer = cmd.ExecuteNonQuery()
+            conn.Close()
+
+            If success > 0 And LateDate() > 0 Then
                 MessageBox.Show("Late return of book! Please pay your fine : RM" & LateDate(), "Return with fine !", MessageBoxButtons.OK, MessageBoxIcon.Stop)
-            Else
+            ElseIf success > 0 And LateDate() <= 0 Then
                 MessageBox.Show("Book return successfully! Thank you!", "Return Successful !", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Else
+                MessageBox.Show("Error Updating Database!", "Update error", MessageBoxButtons.OK, MessageBoxIcon.Error)
             End If
             Me.Dispose()
+
         ElseIf cbISBN.Text.ToString <> "" And lbLoanID2.Text.ToString = "" Then
             MessageBox.Show("Please enter a correct ISBN!", "Invalid ISBN!", MessageBoxButtons.OK, MessageBoxIcon.Exclamation)
         Else

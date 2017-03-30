@@ -37,7 +37,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>member ID</Value>
+                              <Value>Member ID</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontSize>11pt</FontSize>
@@ -73,7 +73,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>member Name</Value>
+                              <Value>Member Name</Value>
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontSize>11pt</FontSize>
@@ -145,7 +145,21 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>authors</Value>
+                              <Value>Title</Value>
+                              <Style>
+                                <FontFamily>Tahoma</FontFamily>
+                                <FontSize>11pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
+                                <Color>White</Color>
+                              </Style>
+                            </TextRun>
+                          </TextRuns>
+                          <Style />
+                        </Paragraph>
+                        <Paragraph>
+                          <TextRuns>
+                            <TextRun>
+                              <Value />
                               <Style>
                                 <FontFamily>Tahoma</FontFamily>
                                 <FontSize>11pt</FontSize>
@@ -341,21 +355,21 @@
                 </TablixCell>
                 <TablixCell>
                   <CellContents>
-                    <Textbox Name="authors1">
+                    <Textbox Name="title">
                       <CanGrow>true</CanGrow>
                       <KeepTogether>true</KeepTogether>
                       <Paragraphs>
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>=Fields!authors.Value</Value>
+                              <Value>=Fields!title.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
                           <Style />
                         </Paragraph>
                       </Paragraphs>
-                      <rd:DefaultName>authors1</rd:DefaultName>
+                      <rd:DefaultName>title</rd:DefaultName>
                       <Style>
                         <Border>
                           <Color>LightGrey</Color>
@@ -379,7 +393,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!borrowDate.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>dd-MMM-yy</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -409,7 +425,9 @@
                           <TextRuns>
                             <TextRun>
                               <Value>=Fields!returnDate.Value</Value>
-                              <Style />
+                              <Style>
+                                <Format>dd-MMM-yy</Format>
+                              </Style>
                             </TextRun>
                           </TextRuns>
                           <Style />
@@ -427,6 +445,7 @@
                         <PaddingBottom>2pt</PaddingBottom>
                       </Style>
                     </Textbox>
+                    <rd:Selected>true</rd:Selected>
                   </CellContents>
                 </TablixCell>
               </TablixCells>
@@ -504,10 +523,6 @@
           <DataField>ISBN</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="authors">
-          <DataField>authors</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
         <Field Name="borrowDate">
           <DataField>borrowDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
@@ -515,6 +530,10 @@
         <Field Name="returnDate">
           <DataField>returnDate</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="title">
+          <DataField>title</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

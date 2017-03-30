@@ -289,7 +289,7 @@ Partial Public Class DataSet2
         
         Private columnISBN As Global.System.Data.DataColumn
         
-        Private columnauthors As Global.System.Data.DataColumn
+        Private columntitle As Global.System.Data.DataColumn
         
         Private columnborrowDate As Global.System.Data.DataColumn
         
@@ -356,9 +356,9 @@ Partial Public Class DataSet2
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property authorsColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property titleColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnauthors
+                Return Me.columntitle
             End Get
         End Property
         
@@ -415,9 +415,9 @@ Partial Public Class DataSet2
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AddDataTable1Row(ByVal memberID As Integer, ByVal memberName As String, ByVal ISBN As Integer, ByVal authors As String, ByVal borrowDate As Date, ByVal returnDate As Date) As DataTable1Row
+        Public Overloads Function AddDataTable1Row(ByVal memberID As Integer, ByVal memberName As String, ByVal title As String, ByVal borrowDate As Date, ByVal returnDate As Date) As DataTable1Row
             Dim rowDataTable1Row As DataTable1Row = CType(Me.NewRow,DataTable1Row)
-            Dim columnValuesArray() As Object = New Object() {memberID, memberName, ISBN, authors, borrowDate, returnDate}
+            Dim columnValuesArray() As Object = New Object() {memberID, memberName, Nothing, title, borrowDate, returnDate}
             rowDataTable1Row.ItemArray = columnValuesArray
             Me.Rows.Add(rowDataTable1Row)
             Return rowDataTable1Row
@@ -443,7 +443,7 @@ Partial Public Class DataSet2
             Me.columnmemberID = MyBase.Columns("memberID")
             Me.columnmemberName = MyBase.Columns("memberName")
             Me.columnISBN = MyBase.Columns("ISBN")
-            Me.columnauthors = MyBase.Columns("authors")
+            Me.columntitle = MyBase.Columns("title")
             Me.columnborrowDate = MyBase.Columns("borrowDate")
             Me.columnreturnDate = MyBase.Columns("returnDate")
         End Sub
@@ -457,8 +457,8 @@ Partial Public Class DataSet2
             MyBase.Columns.Add(Me.columnmemberName)
             Me.columnISBN = New Global.System.Data.DataColumn("ISBN", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnISBN)
-            Me.columnauthors = New Global.System.Data.DataColumn("authors", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnauthors)
+            Me.columntitle = New Global.System.Data.DataColumn("title", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntitle)
             Me.columnborrowDate = New Global.System.Data.DataColumn("borrowDate", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnborrowDate)
             Me.columnreturnDate = New Global.System.Data.DataColumn("returnDate", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
@@ -466,7 +466,10 @@ Partial Public Class DataSet2
             Me.columnmemberID.ReadOnly = true
             Me.columnmemberName.ReadOnly = true
             Me.columnmemberName.MaxLength = 255
-            Me.columnauthors.MaxLength = 60
+            Me.columnISBN.AutoIncrement = true
+            Me.columnISBN.AutoIncrementSeed = -1
+            Me.columnISBN.AutoIncrementStep = -1
+            Me.columntitle.MaxLength = 255
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -658,16 +661,16 @@ Partial Public Class DataSet2
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property authors() As String
+        Public Property title() As String
             Get
                 Try 
-                    Return CType(Me(Me.tableDataTable1.authorsColumn),String)
+                    Return CType(Me(Me.tableDataTable1.titleColumn),String)
                 Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'authors' in table 'DataTable1' is DBNull.", e)
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'title' in table 'DataTable1' is DBNull.", e)
                 End Try
             End Get
             Set
-                Me(Me.tableDataTable1.authorsColumn) = value
+                Me(Me.tableDataTable1.titleColumn) = value
             End Set
         End Property
         
@@ -739,14 +742,14 @@ Partial Public Class DataSet2
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsauthorsNull() As Boolean
-            Return Me.IsNull(Me.tableDataTable1.authorsColumn)
+        Public Function IstitleNull() As Boolean
+            Return Me.IsNull(Me.tableDataTable1.titleColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetauthorsNull()
-            Me(Me.tableDataTable1.authorsColumn) = Global.System.Convert.DBNull
+        Public Sub SettitleNull()
+            Me(Me.tableDataTable1.titleColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -943,7 +946,7 @@ Namespace DataSet2TableAdapters
             tableMapping.ColumnMappings.Add("memberID", "memberID")
             tableMapping.ColumnMappings.Add("memberName", "memberName")
             tableMapping.ColumnMappings.Add("ISBN", "ISBN")
-            tableMapping.ColumnMappings.Add("authors", "authors")
+            tableMapping.ColumnMappings.Add("title", "title")
             tableMapping.ColumnMappings.Add("borrowDate", "borrowDate")
             tableMapping.ColumnMappings.Add("returnDate", "returnDate")
             Me._adapter.TableMappings.Add(tableMapping)
@@ -962,11 +965,13 @@ Namespace DataSet2TableAdapters
             Me._commandCollection = New Global.System.Data.OleDb.OleDbCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.OleDb.OleDbCommand()
             Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "SELECT IIF(ISNULL(Member.memberID),Librarian.librarianID,Member.memberID) AS memb"& _ 
-                "erID,IIF(ISNULL(Member.memberID),Librarian.librarianName,Member.memberName) AS m"& _ 
-                "emberName,Book.ISBN,Book.authors,Loan.borrowDate,Loan.returnDate"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM ((Loan LE"& _ 
-                "FT JOIN Member ON Member.memberID = Loan.memberID) LEFT JOIN Librarian ON Librar"& _ 
-                "ian.librarianID = Loan.memberID) INNER JOIN Book ON Book.ISBN = Loan.ISBN"
+            Me._commandCollection(0).CommandText = "SELECT        IIF(ISNULL(Member.memberID), Librarian.librarianID, Member.memberID"& _ 
+                ") AS memberID, IIF(ISNULL(Member.memberID), Librarian.librarianName, Member.memb"& _ 
+                "erName) AS memberName, Book.ISBN, Book.title, "&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Loan.bo"& _ 
+                "rrowDate, Loan.returnDate"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"FROM            (((Loan LEFT OUTER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"            "& _ 
+                "             Member ON Member.memberID = Loan.memberID) LEFT OUTER JOIN"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"       "& _ 
+                "                  Librarian ON Librarian.librarianID = Loan.memberID) INNER JOIN"& _ 
+                ""&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"                         Book ON Book.ISBN = Loan.ISBN)"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.Text
         End Sub
         
